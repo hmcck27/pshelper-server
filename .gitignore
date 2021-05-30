@@ -1,3 +1,6 @@
+.java/
+src/.java/
+
 .DS_Store
 .env
 .flaskenv
@@ -19,6 +22,7 @@ _mailinglist
 docs/_
 build/
 .vscode
+
 
 # Coverage reports
 htmlcov/

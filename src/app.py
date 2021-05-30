@@ -1,7 +1,6 @@
 from flask import Flask
-from flask_restx import Resource, Api
-from problem import Problem
-
+from flask_restx import Api
+from .controller.problem import Problem
 app = Flask(__name__)
 api = Api(
     app,
@@ -13,7 +12,7 @@ api = Api(
     license="MIT"
 )
 
-api.add_namespace(Problem, '/problem')
+api.add_namespace(Problem, '/api/v1/problem')
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=80)
