@@ -1,2 +1,2 @@
-from src.analyzer.problem_analyzer import ProblemAnalyzer
-from .controller.problem import ProblemController
+from src.analyzer.divide_highlighter import ProblemAnalyzer
+from .controller.divideHighlightController import ProblemController
