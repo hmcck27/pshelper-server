@@ -16,14 +16,19 @@ keyword_fields = Keyword.model('Problem', {
                            example="첫째 줄에 테스트 케이스의 개수 T가 주어진다. 각 테스트 케이스는 다음과 같이 구성되어있다. 테스트 케이스의 첫째 줄에 점의 개수 N이 주어진다. N은 짝수이다. 둘째 줄부터 N개의 줄에 점의 좌표가 주어진다. N은 20보다 작거나 같은 자연수이고, 좌표는 절댓값이 100,000보다 작거나 같은 정수다. 모든 점은 서로 다르다."),
 })
 
-one_keyword_fields = {
-    fields.String : fields.String,
-}
+one_keyword_fields = fields.Wildcard(fields.String)
+wildcard_keyword = {"*":one_keyword_fields}
 
-keyword_response = Keyword.model('Problem_Response', {
+# >>> wild = fields.Wildcard(fields.String)
+# >>> wildcard_fields = {'*': wild}
+# >>> data = {'John': 12, 'bob': 42, 'Jane': '68'}
+# >>> json.dumps(marshal(data, wildcard_fields))
+# >>> '{"Jane": "68", "bob": "42", "John": "12"}'
+
+keyword_response = Keyword.model('Keyword_Response', {
     'problem_id': fields.Integer,
     'problem_url': fields.String,
-    'keyword_list' : fields.List(fields.Nested(one_keyword_fields)), ## to-do : json form -> need to test !
+    'keyword_list' : one_keyword_fields, ## to-do : json form -> need to test !
 })
 
 @Keyword.route('')

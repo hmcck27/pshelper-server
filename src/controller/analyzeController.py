@@ -15,14 +15,17 @@ analyze_fields = Analyze.model('Problem', {
                            example="첫째 줄에 테스트 케이스의 개수 T가 주어진다. 각 테스트 케이스는 다음과 같이 구성되어있다. 테스트 케이스의 첫째 줄에 점의 개수 N이 주어진다. N은 짝수이다. 둘째 줄부터 N개의 줄에 점의 좌표가 주어진다. N은 20보다 작거나 같은 자연수이고, 좌표는 절댓값이 100,000보다 작거나 같은 정수다. 모든 점은 서로 다르다."),
 })
 
-algorithm_fields = {
-    fields.String : fields.Integer,
-}
+# algorithm_fields = {
+#     fields.String : fields.Integer,
+# }
+
+algorithm_fields = fields.Wildcard(fields.String)
+wildcard_algorithm = { "*" :algorithm_fields}
 
 analyze_response = Analyze.model('Problem_response', {
     'problem_id' : fields.String,
     'problem_url' : fields.String,
-    'algorithm_type' : fields.List(fields.Nested(algorithm_fields))
+    'algorithm_type' : algorithm_fields
 })
 
 @Analyze.route('')
