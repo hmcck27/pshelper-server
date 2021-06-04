@@ -36,3 +36,4 @@ class ProblemAnalyzer:
             sentence_list.append(ProblemAnalyzer.getPosBySentence(sentence))
 
         return sentence_list
+

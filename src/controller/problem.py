@@ -21,7 +21,6 @@ problem_response = Problem.model('Problem_Response', {
     'problem_id': fields.Integer,
     'problem_url': fields.String,
     'sentence_list': fields.List(fields.String),
-
 })
 
 
