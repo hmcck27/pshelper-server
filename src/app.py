@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_restx import Api
+
+
 from .controller.divideHighlightController import Divide_Highlight
 from .controller.keywordController import Keyword
 from .controller.analyzeController import Analyze
@@ -21,4 +23,5 @@ api.add_namespace(Keyword, '/api/v1/keyword')
 api.add_namespace(Analyze, '/api/v1/analyze')
 api.add_namespace(Sample, '/v1/api/test')
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0')
+
