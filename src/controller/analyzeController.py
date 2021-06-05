@@ -3,7 +3,7 @@ from flask_restx import  Resource, Namespace, fields
 from src.analyzer.tagAnalyzer import TagAnalyzer
 Analyze = Namespace(
     name="Analyze Algorithm",
-    description='문제 지문을 받고 적절한 태그를 반환한다.',
+    description='문제 지문을 받고 적절한 <strong>알고리즘 태그</strong>를 반환합니다.',
 )
 
 # Model 객체 생성
@@ -20,11 +20,10 @@ analyze_fields = Analyze.model('Problem', {
 # }
 
 algorithm_fields = fields.Wildcard(fields.String)
-wildcard_algorithm = { "*" :algorithm_fields}
 
 analyze_response = Analyze.model('Problem_response', {
-    'problem_id' : fields.String,
-    'problem_url' : fields.String,
+    'problem_id' : fields.String(description='문제 번호', required=True, example="1007"),
+    'problem_url' : fields.String(description="문제 url", required=True, example="www.psHelper.de"),
     'algorithm_type' : algorithm_fields
 })
 

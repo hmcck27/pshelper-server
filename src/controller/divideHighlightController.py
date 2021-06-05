@@ -3,8 +3,8 @@ from flask_restx import Resource, Namespace, fields
 from src.analyzer.divide_highlighter import DivideHighlighter
 
 Divide_Highlight = Namespace(
-    name="Highlighting",
-    description="문제 지문을 받고 적절한 값을 리턴해줍니다.",
+    name="DivideAndHighlight",
+    description="문제 지문을 받아 <strong>문장 단위</strong>로 나누고 <strong>접속부사</strong>를 볼드처리합니다.",
 )
 
 # Model 객체 생성
@@ -18,9 +18,9 @@ divide_highlight_fields = Divide_Highlight.model('Problem', {
 })
 
 divide_highlight_response = Divide_Highlight.model('Problem_Response', {
-    'problem_id': fields.Integer,
-    'problem_url': fields.String,
-    'sentence_list': fields.List(fields.String),
+    'problem_id': fields.Integer(description='문제 번호', required=True, example="1007"),
+    'problem_url': fields.String(description="문제 url", required=True, example="www.psHelper.de"),
+    'sentence_list': fields.List(fields.String()),
 })
 
 @Divide_Highlight.route('')

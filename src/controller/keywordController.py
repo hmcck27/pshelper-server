@@ -3,8 +3,8 @@ from flask_restx import Resource, Namespace, fields
 from src.analyzer.keywordAnalyzer import KeywordAnalyzer
 
 Keyword = Namespace(
-    name="keyword",
-    description="문제 지문을 받아서 키워드를 리턴해줍니다.",
+    name="Keyword",
+    description="문제 지문을 받아서 해당 지문의 <strong>키워드</strong>들을 반환합니다.",
 )
 
 # Model 객체 생성
@@ -17,17 +17,10 @@ keyword_fields = Keyword.model('Problem', {
 })
 
 one_keyword_fields = fields.Wildcard(fields.String)
-wildcard_keyword = {"*":one_keyword_fields}
-
-# >>> wild = fields.Wildcard(fields.String)
-# >>> wildcard_fields = {'*': wild}
-# >>> data = {'John': 12, 'bob': 42, 'Jane': '68'}
-# >>> json.dumps(marshal(data, wildcard_fields))
-# >>> '{"Jane": "68", "bob": "42", "John": "12"}'
 
 keyword_response = Keyword.model('Keyword_Response', {
-    'problem_id': fields.Integer,
-    'problem_url': fields.String,
+    'problem_id': fields.Integer(description='문제 번호', required=True, example="1007"),
+    'problem_url': fields.String(description="문제 url", required=True, example="www.psHelper.de"),
     'keyword_list' : one_keyword_fields, ## to-do : json form -> need to test !
 })
 
