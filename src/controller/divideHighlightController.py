@@ -33,7 +33,8 @@ class DivideHighlightController(Resource):
 
     def post(self):
         content = request.json.get('content')
-        sentence_list = Divide_Highlight.getDevidedContent(content)
+        sentence_list = DivideHighlighter(content).result
+
         ''' TO-DO '''
 
         '''
