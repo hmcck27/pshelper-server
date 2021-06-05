@@ -23,9 +23,12 @@ docs/_
 build/
 .vscode
 
-
 # Coverage reports
 htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+# uwsgi
+.sock
+.ini
