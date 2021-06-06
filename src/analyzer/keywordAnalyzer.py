@@ -1,23 +1,42 @@
+from src.resource.keyword import keyword_list
+
 '''
     this is for keyword tagging
 '''
 
 
 class KeywordAnalyzer:
-    def __init__(self):
+    def __init__(self,text):
 
         '''
             TO-DO -> dictionary 정의 필요
         '''
 
         self.keyword_dict = {}
-        self.keyword = [{"label": "mathmatic", "keywords" : []}]
-        self.tag = {}
+        self.keyword_dict["keyword"] = {}
+        self.keyword = keyword_list
+
+        self.highlighted_text=''
+        self.findKeyword(text)
         ## return-value
 
     def findKeyword(self,text):
-        for self.keyword["keywords"] in self.keyword :
-            keywordList = self.keyword["keywords"]
-            # for oneKeyword in keywordList :
+
+        for oneKeyword in self.keyword :
+            index = text.find(oneKeyword["name"])
+            if index != -1 :
+                if text[index-1] != ' ' :
+                    continue
+                else :
+                    text = text.replace(oneKeyword["name"],"<mark>" + oneKeyword["name"]  + "</mark>")
+                    temp_dict = {}
+                    wholeCount = sum([int(x) for x in oneKeyword["count"].split(',') ])
+                    for one_label, one_count in zip(oneKeyword["label"].split(','), oneKeyword["count"].split(',')) :
+                        temp_dict[one_label] = str(int((int(one_count) * 100) / wholeCount)) + '%'
+
+                    self.keyword_dict["keyword"][oneKeyword["name"]] = temp_dict
+        self.highlighted_text = text
+
+
 
 

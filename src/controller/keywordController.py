@@ -35,11 +35,15 @@ class KeywordController(Resource):
             TO-DO
             1. find keyword in description
         '''
-
-        keyword_list = KeywordAnalyzer.findKeyword(content)
+        keyword_analyzer = KeywordAnalyzer(content)
+        keyword_list = keyword_analyzer.keyword_dict
+        highlighted_text = keyword_analyzer.highlighted_text
+        print(keyword_list)
+        print(highlighted_text)
 
         return {
                    'problem_id': request.json.get('problem_id'),
                    'problem_url': "https://www.acmicpc.net/problem/" + str(request.json.get('problem_id')),
-                   'keyword_list': keyword_list
+                   'keyword_list': keyword_list["keyword"],
+                   'highted_text' : highlighted_text
                }, 201
