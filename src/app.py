@@ -22,6 +22,7 @@ api.add_namespace(Divide_Highlight, '/api/v1/divide_highlight')
 api.add_namespace(Keyword, '/api/v1/keyword')
 api.add_namespace(Analyze, '/api/v1/analyze')
 api.add_namespace(Sample, '/api/v1/test')
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
 

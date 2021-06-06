@@ -8,6 +8,7 @@ class TagAnalyzer:
 
         :param text: String
         :return: String : tag
+
         '''
 
         '''
@@ -17,4 +18,5 @@ class TagAnalyzer:
             2. get the softmax result, get thresholded result
             3. return
         '''
+
         return None;

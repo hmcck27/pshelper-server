@@ -20,7 +20,7 @@ one_keyword_fields = fields.Wildcard(fields.String)
 
 keyword_response = Keyword.model('Keyword_Response', {
     'problem_id': fields.Integer(description='문제 번호', required=True, example="1007"),
-    'problem_url': fields.String(description="문제 url", required=True, example="www.psHelper.de"),
+    'problem_url': fields.String(description="문제 url", required=True, example="www.abc.psHelper.de"),
     'keyword_list' : one_keyword_fields, ## to-do : json form -> need to test !
 })
 
