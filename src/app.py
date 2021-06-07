@@ -14,7 +14,7 @@ api = Api(
     title="PS HELPER API Server",
     description="PS HELPER API 문서입니다.",
     terms_url="/",
-    contact="donghoon149@gmail.com / hmcck27@gmail.com",
+    contact_url="donghoon149@gmail.com / hmcck27@gmail.com",
     license="MIT"
 )
 
