@@ -1,6 +1,7 @@
 from flask import request
 from flask_restx import Resource, Namespace, fields
 from src.analyzer.keywordAnalyzer import KeywordAnalyzer
+from src.analyzer.keywordAnalyzer import keywordAnalyzer2
 
 Keyword = Namespace(
     name="Keyword",
@@ -35,9 +36,13 @@ class KeywordController(Resource):
             TO-DO
             1. find keyword in description
         '''
-        keyword_analyzer = KeywordAnalyzer(content)
-        keyword_list = keyword_analyzer.keyword_dict
-        highlighted_text = keyword_analyzer.highlighted_text
+        # keyword_analyzer = KeywordAnalyzer(content)
+
+        # keyword_list = keyword_analyzer.keyword_dict
+        # highlighted_text = keyword_analyzer.highlighted_text
+
+        keyword_list, highlighted_text = keywordAnalyzer2.findKeyword(content)
+
         print(keyword_list)
         print(highlighted_text)
 
@@ -45,5 +50,5 @@ class KeywordController(Resource):
                    'problem_id': request.json.get('problem_id'),
                    'problem_url': "https://www.acmicpc.net/problem/" + str(request.json.get('problem_id')),
                    'keyword_list': keyword_list["keyword"],
-                   'highted_text' : highlighted_text
+                   'highlighted_text' : highlighted_text
                }, 201

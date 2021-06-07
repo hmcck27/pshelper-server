@@ -664,3 +664,6 @@ keyword_list = [{'count': '3586', 'label': 'Mathematics', 'name': '수'},
  {'count': '20', 'label': 'Priority_queue', 'name': '추가'},
  {'count': '20', 'label': 'Priority_queue', 'name': '순위'},
  {'count': '8', 'label': 'Priority_queue', 'name': '우선순위'}]
+
+label_keyword_ratio = {'Mathematics': 0.163, 'Dynamic_programming': 0.121, 'Implementation': 0.126, 'Graph_theory': 0.099, 'Data_structures': 0.089, 'Greedy': 0.049, 'String': 0.054, 'Graph_traversal': 0.053, 'Bruteforcing': 0.044, 'Tree': 0.034, 'Binary_search': 0.033, 'Number_theory': 0.035, 'Breadth_first_search': 0.031, 'Depth_first_search': 0.018, 'Dijkstras': 0.017, 'Divide_and_conquer': 0.014, 'Stack': 0.01, 'Priority_queue': 0.01}
+
