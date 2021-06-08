@@ -55,6 +55,3 @@ class keywordAnalyzer2:
                     keyword_dict["keyword"][oneKeyword["name"]] = temp_dict
 
         return keyword_dict, self
-
-
-

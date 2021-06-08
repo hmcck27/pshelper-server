@@ -4,13 +4,8 @@ from src.preprocessor.checkFunctions import checkFunctions
 
 
 class textPreprocessor():
-
-    def __init__(self, text):
-        self.preprocessedText = self.preprocessing(text)
-
-
-    @classmethod
-    def preprocessing(self, text):
+    @staticmethod
+    def preprocessing(text):
         '''
         :param text: String :row data
         :return: String : preprocessed data

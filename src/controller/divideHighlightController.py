@@ -1,6 +1,8 @@
 from flask import request
 from flask_restx import Resource, Namespace, fields
 from src.analyzer.divide_highlighter import DivideHighlighter
+# from src.app import Divide_Highlight
+# from src.__init__ import Divide_Highlight
 
 Divide_Highlight = Namespace(
     name="DivideAndHighlight",

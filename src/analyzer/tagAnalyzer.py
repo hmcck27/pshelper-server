@@ -2,8 +2,11 @@
     this is for model inference
 '''
 
+# from src.app import prediction
+
 class TagAnalyzer:
-    def fineTag(self,text):
+
+    def findTag(text):
         '''
 
         :param text: String
@@ -18,5 +21,7 @@ class TagAnalyzer:
             2. get the softmax result, get thresholded result
             3. return
         '''
+        labels = prediction.predict(text)
 
-        return None;
+        return labels;
+
