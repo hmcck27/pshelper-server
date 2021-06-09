@@ -111,10 +111,34 @@ analyze_response = Analyze.model('Problem_response', {
 ''' test '''
 print('sdfsdfsdfsdf')
 
-prediction = ''
 print('14')
 
+print('sdfsdfwerwer')
+@Analyze.route('')
+class AnalyzeController(Resource):
+    print('4444444')
+    @Analyze.expect(analyze_fields)
+    @Analyze.response(201, "Success", analyze_response)
+    def post(self):
+        content = request.json.get('content')
+        text_preprocessor = textPreprocessor()
+        '''
+            TO-DO
+            0. preprocess text
+            1. analyze the description
+        '''
+        preprocessed_text = text_preprocessor.preprocessing(content)
 
+        # tag = TagAnalyzer.findTag(preprocessed_text)
+        tag,ratio = prediction.predict(preprocessed_text)
+        # print(content)
+
+        return {
+                   'problem_id': request.json.get('problem_id'),
+                   'problem_url': "https://www.acmicpc.net/problem/" + str(request.json.get('problem_id')),
+                   'algorithm_type' : tag,
+                   'algorithm_ratio' : ratio
+               }, 201
 
 
 # class Classifier(nn.Module):
@@ -160,36 +184,8 @@ if __name__ == "__main__" :
     print('sdfsdfsdf')
     from load_models import koBERT_CNN_Classifier
     print('33')
+    global prediction
     prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
-    print('sdfsdfwerwer')
-
-
-    @Analyze.route('')
-    class AnalyzeController(Resource):
-
-        @Analyze.expect(analyze_fields)
-        @Analyze.response(201, "Success", analyze_response)
-        def post(self):
-            content = request.json.get('content')
-            text_preprocessor = textPreprocessor()
-            '''
-                TO-DO
-                0. preprocess text
-                1. analyze the description
-            '''
-            preprocessed_text = text_preprocessor.preprocessing(content)
-
-            # tag = TagAnalyzer.findTag(preprocessed_text)
-            tag, ratio = prediction.predict(preprocessed_text)
-            # print(content)
-
-            return {
-                       'problem_id': request.json.get('problem_id'),
-                       'problem_url': "https://www.acmicpc.net/problem/" + str(request.json.get('problem_id')),
-                       'algorithm_type': tag,
-                       'algorithm_ratio': ratio
-                   }, 201
-
     app.run(debug=True, host='0.0.0.0')
 #if __name__ == "__main__": 
 #    app.run(debug=True, host='0.0.0.0')
