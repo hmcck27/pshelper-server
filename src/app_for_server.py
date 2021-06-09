@@ -15,6 +15,11 @@ from src.controller.testController import Sample
 from src.controller.divideHighlightController import Divide_Highlight
 
 
+if __name__ == "__main__" :
+    from load_models import koBERT_CNN_Classifier
+    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+    # app.run(debug=True, host='0.0.0.0')
+
 class Classifier(nn.Module):
     def __init__(self,
                      hidden_size=768,
@@ -137,7 +142,7 @@ class AnalyzeController(Resource):
                }, 201
 
 
-print('sdfsdfwerwer') 
+print('sdfsdfwerwer')
 
 
 # class Classifier(nn.Module):
@@ -179,10 +184,7 @@ print('sdfsdfwerwer')
 #       out = out.reshape(out.size(0), -1)
 #       return  self.classifier(out)
 
-if __name__ == "__main__" :
-    from load_models import koBERT_CNN_Classifier
-    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
-    app.run(debug=True, host='0.0.0.0')
-#if __name__ == "__main__": 
+
+#if __name__ == "__main__":
 #    app.run(debug=True, host='0.0.0.0')
 
