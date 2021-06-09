@@ -114,6 +114,12 @@ print('sdfsdfsdfsdf')
 print('14')
 
 print('sdfsdfwerwer')
+print('sdfsdfsdf')
+from load_models import koBERT_CNN_Classifier
+print('33')
+global prediction
+prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+
 @Analyze.route('')
 class AnalyzeController(Resource):
     print('4444444')
@@ -130,7 +136,11 @@ class AnalyzeController(Resource):
         preprocessed_text = text_preprocessor.preprocessing(content)
 
         # tag = TagAnalyzer.findTag(preprocessed_text)
-        tag,ratio = prediction.predict(preprocessed_text)
+        # tag,ratio = prediction.predict(preprocessed_text)
+
+        from src.controller.analyzeController import run_analyze
+        tag, ratio = prediction.predict(preprocessed_text)
+
         # print(content)
 
         return {
@@ -141,52 +151,10 @@ class AnalyzeController(Resource):
                }, 201
 
 
-# class Classifier(nn.Module):
-#     def __init__(self,
-#                  hidden_size=768,
-#                  num_classes=8,
-#                  dr_rate=0.0):
-#         super(Classifier, self).__init__()
-#         # 16, 2848
-#         # 32, 5696
-#         # 1312
-#         self.kernel_num = 16
-#         self.conv1d_maxpooling1 = nn.Sequential(
-#             nn.Conv1d(hidden_size, self.kernel_num, 4, stride=2),
-#             nn.ReLU(),
-#             nn.MaxPool1d(2, 1),
-#             nn.Dropout(dr_rate)
-#         )
-#         self.conv1d_maxpooling2 = nn.Sequential(
-#             nn.Conv1d(hidden_size, self.kernel_num, 8, stride=2),
-#             nn.ReLU(),
-#             nn.MaxPool1d(2, 1),
-#             nn.Dropout(dr_rate)
-#         )
-#         self.conv1d_maxpooling3 = nn.Sequential(
-#             nn.Conv1d(hidden_size, self.kernel_num, 16, stride=2),
-#             nn.ReLU(),
-#             nn.MaxPool1d(2, 1),
-#             nn.Dropout(dr_rate)
-#         )
-#
-#         self.classifier = nn.Linear(1312, num_classes)
-#
-#     def forward(self, x) :
-#       out1 = self.conv1d_maxpooling1(x.transpose(1, 2))
-#       out2 = self.conv1d_maxpooling2(x.transpose(1, 2))
-#       out3 = self.conv1d_maxpooling3(x.transpose(1, 2))
-#       out = torch.cat((out1, out2, out3), 2)
-#       out = out.reshape(out.size(0), -1)
-#       return  self.classifier(out)
 
-if __name__ == "__main__" :
-    print('sdfsdfsdf')
-    from load_models import koBERT_CNN_Classifier
-    print('33')
-    global prediction
-    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
-    app.run(debug=True, host='0.0.0.0')
+app.run(debug=True, host='0.0.0.0')
+
+
 #if __name__ == "__main__": 
 #    app.run(debug=True, host='0.0.0.0')
 
