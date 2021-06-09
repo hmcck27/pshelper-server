@@ -114,7 +114,12 @@ class Classifier(nn.Module):
         return  self.classifier(out)
 
 class koBERT_CNN_Classifier():
-    def __init__(self, model_path, vocab_path, cnn_path):
+
+    def __init__(self):
+        print("start")
+
+    @classmethod
+    def initModel(self, model_path, vocab_path, cnn_path):
         '''
         :param model_path: String : path for pretrained koBERT model
         :param vocab_path: String : path for vocab which is needed in tokenizing
@@ -183,5 +188,6 @@ if __name__ == "__main__" :
     print('sdfsdf')
 
 
-prediction = koBERT_CNN_Classifier(model_path=model_path,vocab_path=vocab_path,cnn_path=cnn_path)
+
+# prediction = koBERT_CNN_Classifier(model_path=model_path,vocab_path=vocab_path,cnn_path=cnn_path)
 # print(prediction.predict(text="칠개의 자연수가 주어질 때, 이들 중 홀수인 자연수들을 모두 골라 그 합을 구하고, 고른 홀수들 중 최솟값을 찾는 프로그램을 작성하시오.예를 들어, 칠개의 자연수 일십이, 칠십칠, 삼십팔, 사십일, 오십삼, 구십이, 팔십오가 주어지면 이들 중 홀수는 칠십칠, 사십일, 오십삼, 팔십오이므로 그 합은칠십칠 + 사십일 + 오십삼 + 팔십오 = 이백오십육이 되고,사십일 < 오십삼 < 칠십칠 < 팔십오이므로 홀수들 중 최솟값은 사십일이 된다."))

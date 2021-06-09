@@ -111,6 +111,10 @@ api.add_namespace(Divide_Highlight, '/api/v1/divide_highlight')
 api.add_namespace(Keyword, '/api/v1/keyword')
 api.add_namespace(Analyze, '/api/v1/analyze')
 api.add_namespace(Sample, '/api/v1/test')
+
+model = koBERT_CNN_Classifier()
+model.initModel(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+
 @Analyze.route('')
 class AnalyzeController(Resource):
     print('4444444')
@@ -127,12 +131,7 @@ class AnalyzeController(Resource):
         '''
         preprocessed_text = text_preprocessor.preprocessing(content)
 
-        # tag = TagAnalyzer.findTag(preprocessed_text)
-        # tag,ratio = prediction.predict(preprocessed_text)
-        import src
-        tag, ratio = prediction.predict(preprocessed_text)
-
-        # print(content)
+        tag, ratio = model.predict(preprocessed_text)
 
         return {
                    'problem_id': request.json.get('problem_id'),
@@ -156,7 +155,6 @@ print('sdfsdfsdf')
 
 # app.run(debug=True, host='0.0.0.0')
 
-prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
 
 if __name__ == "__main__":
 
