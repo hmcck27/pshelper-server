@@ -23,9 +23,23 @@ docs/_
 build/
 .vscode
 
-
 # Coverage reports
 htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+# uwsgi
+.sock
+.ini
+
+# test code
+test.py
+requirements.txt
+# model
+.bin
+model/
+model/kobert_from_pretrained
+
+#__pycache__
+__pycache__

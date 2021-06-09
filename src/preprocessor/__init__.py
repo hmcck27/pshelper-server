@@ -1,6 +1,7 @@
 __all__ = [
     'checkFunctions',
-    'basicHelperFunctions',
-    'replaceFunctions'
+    'textPreprocessor',
+    'replaceFunctions',
+    'deleteFunctions'
 ]
 
