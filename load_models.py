@@ -140,6 +140,13 @@ class koBERT_CNN_Classifier():
         # self.classifier.eval()
 
         self.classifier = Classifier(num_classes=18, dr_rate=0.1)
+        temp = torch.load(cnn_path)
+        print(len(temp))
+        for i in temp :
+            print(i)
+            print(temp[i]) # tensor
+
+
         self.classifier.load_state_dict(torch.load(cnn_path))
 
         ''' tag list '''
