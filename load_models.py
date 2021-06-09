@@ -3,12 +3,16 @@ from torch import nn
 import gluonnlp as nlp
 import numpy as np
 from transformers import BertModel
-# from settings import model_path, vocab_path, cnn_path
+import tensorflow as tf
+from tensorflow.keras.layers import Input, Dense, concatenate, Conv1D, MaxPool1D, Dropout, Flatten
+from tensorflow.keras.models import Model
+from settings import cnn_path, model_path, vocab_path
 
 text = "칠개의 자연수가 주어질 때, 이들 중 홀수인 자연수들을 모두 골라 그 합을 구하고, 고른 홀수들 중 최솟값을 찾는 프로그램을 작성하시오.예를 들어, 칠개의 자연수 일십이, 칠십칠, 삼십팔, 사십일, 오십삼, 구십이, 팔십오가 주어지면 이들 중 홀수는 칠십칠, 사십일, 오십삼, 팔십오이므로 그 합은칠십칠 + 사십일 + 오십삼 + 팔십오 = 이백오십육이 되고,사십일 < 오십삼 < 칠십칠 < 팔십오이므로 홀수들 중 최솟값은 사십일이 된다."
-model_path = '/content/drive/MyDrive/kobert_from_pretrained'
-cnn_path = '/content/drive/MyDrive/model_save/freeze_cnn.pt'
-vocab_path = '/content/drive/MyDrive/kobert_news_wiki_ko_cased-1087f8699e.spiece'
+# model_path = '/content/drive/MyDrive/kobert_from_pretrained'
+# cnn_path = '/content/drive/MyDrive/model_save/cnn_weight.h5'
+# vocab_path = '/content/drive/MyDrive/kobert_news_wiki_ko_cased-1087f8699e.spiece'
+# cnn_state = '/content/drive/MyDrive/model_save/cnn_dict.pt'
 
 tag_name = ['Mathematics', 'Dynamic_programming', 'Implementation', 'Graph_theory',
             'Data_structures', 'Greedy', 'String', 'Graph_traversal',
@@ -51,45 +55,40 @@ class BERToutput(nn.Module):
         return output
 
 
-class Classifier(nn.Module):
-    def __init__(self,
-                 hidden_size=768,
-                 num_classes=8,
-                 dr_rate=0.0):
-        super(Classifier, self).__init__()
-        # 16, 2848
-        # 32, 5696
-        # 1312
-        self.kernel_num = 16
-        self.conv1d_maxpooling1 = nn.Sequential(
-            nn.Conv1d(hidden_size, self.kernel_num, 4, stride=2),
-            nn.ReLU(),
-            nn.MaxPool1d(2, 1),
-            nn.Dropout(dr_rate)
-        )
-        self.conv1d_maxpooling2 = nn.Sequential(
-            nn.Conv1d(hidden_size, self.kernel_num, 8, stride=2),
-            nn.ReLU(),
-            nn.MaxPool1d(2, 1),
-            nn.Dropout(dr_rate)
-        )
-        self.conv1d_maxpooling3 = nn.Sequential(
-            nn.Conv1d(hidden_size, self.kernel_num, 16, stride=2),
-            nn.ReLU(),
-            nn.MaxPool1d(2, 1),
-            nn.Dropout(dr_rate)
-        )
+def get_model(x=0.1, num_classes=18):
+    kernel_num = 16
+    windows = [4, 8, 16]
 
-        self.classifier = nn.Linear(1312, num_classes)
+    vector_input = Input(shape=(64, 768), name="vector")
+    layer_conv1 = Conv1D(kernel_num, windows[0], strides=2, activation='relu')
+    layer_conv2 = Conv1D(kernel_num, windows[1], strides=2, activation='relu')
+    layer_conv3 = Conv1D(kernel_num, windows[2], strides=2, activation='relu')
+    max_pool1 = MaxPool1D(2, 1)
+    max_pool2 = MaxPool1D(2, 1)
+    max_pool3 = MaxPool1D(2, 1)
+    dropout = Dropout(x)
 
-    def forward(self, x):
-        out1 = self.conv1d_maxpooling1(x.transpose(1, 2))
-        out2 = self.conv1d_maxpooling2(x.transpose(1, 2))
-        out3 = self.conv1d_maxpooling3(x.transpose(1, 2))
-        out = torch.cat((out1, out2, out3), 2)
-        out = out.reshape(out.size(0), -1)
+    hidden1 = layer_conv1(vector_input)
+    hidden1 = max_pool1(hidden1)
+    hidden1 = dropout(hidden1)
 
-        return self.classifier(out)
+    hidden2 = layer_conv2(vector_input)
+    hidden2 = max_pool2(hidden2)
+    hidden2 = dropout(hidden2)
+
+    hidden3 = layer_conv3(vector_input)
+    hidden3 = max_pool3(hidden3)
+    hidden3 = dropout(hidden3)
+
+    concat = concatenate([hidden1, hidden2, hidden3], axis=1)
+    out = Flatten()(concat)
+    output = Dense(num_classes, name="Output", activation='sigmoid')(out)
+
+    model = Model(inputs=vector_input, outputs=output)
+    opt = tf.keras.optimizers.Adam(learning_rate=1e-4)
+    model.compile(optimizer=opt, loss='binary_crossentropy', metrics=['accuracy'])
+
+    return model
 
 
 def get_kobert_classifier(model_path, vocab_path, cnn_path):
@@ -98,8 +97,8 @@ def get_kobert_classifier(model_path, vocab_path, cnn_path):
     bertmodel.eval()
     vocab = nlp.vocab.BERTVocab.from_sentencepiece(vocab_path, padding_token='[PAD]')
     tok = nlp.data.BERTSPTokenizer(vocab_path, vocab, lower=False)
-    classifier = torch.load(cnn_path, map_location=torch.device('cpu'))
-    classifier.eval()
+    classifier = get_model()
+    classifier.load_weights(cnn_path)
 
     return bertmodel, tok, classifier
 
@@ -114,17 +113,17 @@ def convert_to_vector(bertmodel, tok, text):
 
 
 def classification(classifier, vector, thresholds):
+    vector = vector.detach().numpy()
+    #  vector = np.expand_dims(vector)
     out = classifier(vector)
-    out = torch.sigmoid(out).squeeze(0).tolist()
+    out = out.numpy().squeeze()
     label = [tag_name[i] for i in range(len(out)) if out[i] >= thresholds[i]]
 
     return label
 
 
+bert, tokenizer, classifier = get_kobert_classifier(model_path, vocab_path, cnn_path)
+# vector = convert_to_vector(bert, tokenizer, text)
+# out = classification(classifier, vector, thresholds)
 
-if __name__ == '__main__':
-    bert, tokenizer, classifier = get_kobert_classifier(model_path, vocab_path, cnn_path)
-    vector = convert_to_vector(bert, tokenizer, text)
-    out = classification(classifier, vector, thresholds)
-    print(out)
-    #  return out
+
