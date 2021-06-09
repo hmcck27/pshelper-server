@@ -76,44 +76,44 @@ class BERToutput(nn.Module):
 
 class koBERT_CNN_Classifier():
     def __init__(self, model_path, vocab_path, cnn_path):
-        # class Classifier(nn.Module):
-        #     def __init__(self,
-        #                  hidden_size=768,
-        #                  num_classes=8,
-        #                  dr_rate=0.0):
-        #         super(Classifier, self).__init__()
+        class Classifier(nn.Module):
+            def __init__(self,
+                       hidden_size=768,
+                          num_classes=8,
+                          dr_rate=0.0):
+                super(Classifier, self).__init__()
         #         # 16, 2848
         #         # 32, 5696
         #         # 1312
-        #         self.kernel_num = 16
-        #         self.conv1d_maxpooling1 = nn.Sequential(
-        #             nn.Conv1d(hidden_size, self.kernel_num, 4, stride=2),
-        #             nn.ReLU(),
-        #             nn.MaxPool1d(2, 1),
-        #             nn.Dropout(dr_rate)
-        #         )
-        #         self.conv1d_maxpooling2 = nn.Sequential(
-        #             nn.Conv1d(hidden_size, self.kernel_num, 8, stride=2),
-        #             nn.ReLU(),
-        #             nn.MaxPool1d(2, 1),
-        #             nn.Dropout(dr_rate)
-        #         )
-        #         self.conv1d_maxpooling3 = nn.Sequential(
-        #             nn.Conv1d(hidden_size, self.kernel_num, 16, stride=2),
-        #             nn.ReLU(),
-        #             nn.MaxPool1d(2, 1),
-        #             nn.Dropout(dr_rate)
-        #         )
-        #
-        #         self.classifier = nn.Linear(1312, num_classes)
-        #
-        #     def forward(self, x):
-        #         out1 = self.conv1d_maxpooling1(x.transpose(1, 2))
-        #         out2 = self.conv1d_maxpooling2(x.transpose(1, 2))
-        #         out3 = self.conv1d_maxpooling3(x.transpose(1, 2))
-        #         out = torch.cat((out1, out2, out3), 2)
-        #         out = out.reshape(out.size(0), -1)
-        #         return self.classifier(out)
+                self.kernel_num = 16
+                self.conv1d_maxpooling1 = nn.Sequential(
+                     nn.Conv1d(hidden_size, self.kernel_num, 4, stride=2),
+                     nn.ReLU(),
+                     nn.MaxPool1d(2, 1),
+                     nn.Dropout(dr_rate)
+                )
+                self.conv1d_maxpooling2 = nn.Sequential(
+                     nn.Conv1d(hidden_size, self.kernel_num, 8, stride=2),
+                     nn.ReLU(),
+                     nn.MaxPool1d(2, 1),
+                     nn.Dropout(dr_rate)
+                )
+                self.conv1d_maxpooling3 = nn.Sequential(
+                     nn.Conv1d(hidden_size, self.kernel_num, 16, stride=2),
+                     nn.ReLU(),
+                     nn.MaxPool1d(2, 1),
+                     nn.Dropout(dr_rate)
+                )
+        
+                self.classifier = nn.Linear(1312, num_classes)
+        
+            def forward(self, x):
+                out1 = self.conv1d_maxpooling1(x.transpose(1, 2))
+                out2 = self.conv1d_maxpooling2(x.transpose(1, 2))
+                out3 = self.conv1d_maxpooling3(x.transpose(1, 2))
+                out = torch.cat((out1, out2, out3), 2)
+                out = out.reshape(out.size(0), -1)
+                return self.classifier(out)
         '''
         :param model_path: String : path for pretrained koBERT model
         :param vocab_path: String : path for vocab which is needed in tokenizing
@@ -174,6 +174,10 @@ class koBERT_CNN_Classifier():
 
     def predict(self, text):
         return self.classification(self.convert_to_vector(text))
+
+if __name__ == "__main__" :
+    print('sdfsdf')
+
 
 # prediction = koBERT_CNN_Classifier(model_path=model_path,vocab_path=vocab_path,cnn_path=cnn_path)
 # print(prediction.predict(text="칠개의 자연수가 주어질 때, 이들 중 홀수인 자연수들을 모두 골라 그 합을 구하고, 고른 홀수들 중 최솟값을 찾는 프로그램을 작성하시오.예를 들어, 칠개의 자연수 일십이, 칠십칠, 삼십팔, 사십일, 오십삼, 구십이, 팔십오가 주어지면 이들 중 홀수는 칠십칠, 사십일, 오십삼, 팔십오이므로 그 합은칠십칠 + 사십일 + 오십삼 + 팔십오 = 이백오십육이 되고,사십일 < 오십삼 < 칠십칠 < 팔십오이므로 홀수들 중 최솟값은 사십일이 된다."))

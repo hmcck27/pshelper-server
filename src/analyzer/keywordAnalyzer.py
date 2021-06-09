@@ -15,7 +15,6 @@ class KeywordAnalyzer:
         self.keyword_dict = {}
         self.keyword_dict["keyword"] = {}
         self.keyword = keyword_list
-        self.keyword = label_keyword_count
         self.highlighted_text=''
         self.findKeyword(text)
         ## return-value
@@ -37,8 +36,7 @@ class KeywordAnalyzer:
         self.highlighted_text = text
 
 class keywordAnalyzer2:
-
-    def findKeyword(self,text):
+    def findKeyword(text):
         keyword_dict = {}
         for oneKeyword in keyword_list :
             index = text.find(oneKeyword["name"])
