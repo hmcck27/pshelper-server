@@ -1,5 +1,6 @@
 from src.resource.keyword import keyword_list
 from src.resource.keyword import label_keyword_ratio
+from src.resource.keyword import label_keyword_ratio
 '''
     this is for keyword tagging
 '''
@@ -37,15 +38,15 @@ class KeywordAnalyzer:
 
 class keywordAnalyzer2:
 
-    def findKeyword(self, text):
+    def findKeyword(self,text):
         keyword_dict = {}
         for oneKeyword in keyword_list :
-            index = self.find(oneKeyword["name"])
+            index = text.find(oneKeyword["name"])
             if index != -1 :
-                if self[index - 1] != ' ' :
+                if text[index - 1] != ' ' :
                     continue
                 else :
-                    self = self.replace(oneKeyword["name"], "<mark>" + oneKeyword["name"] + "</mark>")
+                    text = text.replace(oneKeyword["name"], "<mark>" + oneKeyword["name"] + "</mark>")
                     temp_dict = {}
                     wholeCount = sum([int(x) for x in oneKeyword["count"].split(',')[1:] ])
                     for one_label, one_count in zip(oneKeyword["label"].split(',')[1:], oneKeyword["count"].split(',')[1:]) :
@@ -54,4 +55,4 @@ class keywordAnalyzer2:
 
                     keyword_dict["keyword"][oneKeyword["name"]] = temp_dict
 
-        return keyword_dict, self
+        return keyword_dict, text
