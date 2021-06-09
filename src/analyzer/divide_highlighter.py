@@ -10,8 +10,7 @@ from konlpy.tag import Kkma
 
 kkma = Kkma()
 
-
-class ProblemAnalyzer:
+class DivideHighlighter:
     @staticmethod
     def getPosBySentence(sentence):
         posses = kkma.pos(sentence)
@@ -19,10 +18,9 @@ class ProblemAnalyzer:
         sentence_formatted = sentence
         for pos in posses:
             if pos[1] == 'MAC':
-                # print(pos[0])
                 pos_dict[pos[0]] = pos[1]
         for key in pos_dict:
-            sentence_formatted = sentence_formatted.replace(key, "<b>"+key+"<b/>")
+            sentence_formatted = sentence_formatted.replace(key, "<strong>"+key+"</strong>")
         print(sentence_formatted)
         return sentence_formatted
 
@@ -33,6 +31,5 @@ class ProblemAnalyzer:
         print("===== Sentence =====")
         for sentence in sentences:
             print(sentence)
-            sentence_list.append(ProblemAnalyzer.getPosBySentence(sentence))
-
+            sentence_list.append(DivideHighlighter.getPosBySentence(sentence))
         return sentence_list
