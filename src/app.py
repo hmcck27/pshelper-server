@@ -111,6 +111,8 @@ analyze_response = Analyze.model('Problem_response', {
 ''' test '''
 print('sdfsdfsdfsdf')
 
+global prediction
+
 @Analyze.route('')
 class AnalyzeController(Resource):
 
@@ -181,6 +183,7 @@ print('sdfsdfwerwer')
 
 if __name__ == "__main__" :
     from load_models import koBERT_CNN_Classifier
+    global prediction
     prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
     app.run(debug=True, host='0.0.0.0')
 #if __name__ == "__main__": 
