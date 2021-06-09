@@ -1,0 +1,150 @@
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Jun  9 07:34:30 2021] ***
+compiled with version: 9.3.0 on 08 June 2021 15:57:59
+os: Linux-5.4.0-1045-aws #47-Ubuntu SMP Tue Apr 13 07:02:25 UTC 2021
+nodename: ip-172-31-11-32
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/ubuntu/pshelper-server
+detected binary path: /pshelper/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/ubuntu/pshelper-server
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 15689
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/ubuntu/pshelper-server/myapp.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, May 27 2021, 13:30:53)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x5634060c62c0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 72904 bytes (71 KB) for 1 cores
+*** Operational MODE: single process ***
+sdfsdfsdfsdf
+sdfsdfwerwer
+Traceback (most recent call last):
+  File "./src/app.py", line 130, in <module>
+    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+  File "./load_models.py", line 57, in __init__
+    self.classifier = torch.load(cnn_path, map_location=torch.device('cpu'))
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 592, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 851, in _load
+    result = unpickler.load()
+AttributeError: Can't get attribute 'Classifier' on <module '__main__' (built-in)>
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (and the only) (pid: 32587, cores: 1)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Jun  9 07:35:49 2021] ***
+compiled with version: 9.3.0 on 08 June 2021 15:57:59
+os: Linux-5.4.0-1045-aws #47-Ubuntu SMP Tue Apr 13 07:02:25 UTC 2021
+nodename: ip-172-31-11-32
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/ubuntu/pshelper-server
+detected binary path: /pshelper/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/ubuntu/pshelper-server
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 15689
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/ubuntu/pshelper-server/myapp.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, May 27 2021, 13:30:53)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x55ee247ab290
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 72904 bytes (71 KB) for 1 cores
+*** Operational MODE: single process ***
+sdfsdfsdfsdf
+sdfsdfwerwer
+Traceback (most recent call last):
+  File "./src/app.py", line 130, in <module>
+    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+  File "./load_models.py", line 57, in __init__
+    self.classifier = torch.load(cnn_path, map_location=torch.device('cpu'))
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 592, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 851, in _load
+    result = unpickler.load()
+AttributeError: Can't get attribute 'Classifier' on <module '__main__' (built-in)>
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (and the only) (pid: 32612, cores: 1)
+VACUUM WARNING: unix socket /home/ubuntu/pshelper-server/myapp.sock changed inode. Skip removal
+VACUUM: unix socket /home/ubuntu/pshelper-server/myapp.sock removed.
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Jun  9 07:46:35 2021] ***
+compiled with version: 9.3.0 on 08 June 2021 15:57:59
+os: Linux-5.4.0-1045-aws #47-Ubuntu SMP Tue Apr 13 07:02:25 UTC 2021
+nodename: ip-172-31-11-32
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/ubuntu/pshelper-server
+detected binary path: /pshelper/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/ubuntu/pshelper-server
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 15689
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/ubuntu/pshelper-server/myapp.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, May 27 2021, 13:30:53)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x561a65a04280
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 72904 bytes (71 KB) for 1 cores
+*** Operational MODE: single process ***
+sdfsdfsdfsdf
+sdfsdfwerwer
+Traceback (most recent call last):
+  File "./src/app.py", line 130, in <module>
+    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+  File "./load_models.py", line 57, in __init__
+    self.classifier = torch.load(cnn_path, map_location=torch.device('cpu'))
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 592, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/pshelper/lib/python3.8/site-packages/torch/serialization.py", line 851, in _load
+    result = unpickler.load()
+AttributeError: Can't get attribute 'Classifier' on <module '__main__' (built-in)>
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (and the only) (pid: 32713, cores: 1)
+VACUUM: unix socket /home/ubuntu/pshelper-server/myapp.sock removed.
