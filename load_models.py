@@ -108,22 +108,38 @@ def convert_to_vector(bertmodel, tok, text):
     sentences = transform([text])
     token_ids, valid_length, segment_ids = sentences
     vector = bertmodel(token_ids, valid_length, segment_ids)
-
     return vector
 
 
 def classification(classifier, vector, thresholds):
     vector = vector.detach().numpy()
     #  vector = np.expand_dims(vector)
+
     out = classifier(vector)
     out = out.numpy().squeeze()
+
+    ratio = [(output*100, tag) for output, thres, tag in zip(out, thresholds, tag_name)]
+    ratio_dict = {}
+
+    for one_ratio in ratio :
+        ratio_dict[one_ratio[1]] = one_ratio[0]
+
+    sdict = sorted(ratio_dict.items(), key=lambda x:x[1], reverse=True)
+
+    result = {}
+
+    for one_tuple in sdict[:3] :
+        result[one_tuple[0]] = str(round(one_tuple[1],2)) + "%"
+
     label = [tag_name[i] for i in range(len(out)) if out[i] >= thresholds[i]]
-
-    return label
-
+    print(out)
+    print(tag_name)
+    print(thresholds)
+    print(label)
+    print(result)
+    return result
 
 bert, tokenizer, classifier = get_kobert_classifier(model_path, vocab_path, cnn_path)
-# vector = convert_to_vector(bert, tokenizer, text)
-# out = classification(classifier, vector, thresholds)
+
 
 
