@@ -10,7 +10,13 @@ from src.controller.keywordController import Keyword
 from src.controller.testController import Sample
 from src.controller.divideHighlightController import Divide_Highlight
 
-from load_models import koBERT_CNN_Classifier
+if __name__ == "__main__" :
+    from load_models import koBERT_CNN_Classifier
+    prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
+
+
+
+#from load_models import koBERT_CNN_Classifier
 from settings import model_path, cnn_path, vocab_path
 
 from torch import nn
@@ -169,8 +175,6 @@ class Classifier(nn.Module):
 #       return  self.classifier(out)
 
 
-prediction = koBERT_CNN_Classifier(model_path=model_path, vocab_path=vocab_path, cnn_path=cnn_path)
-
-if __name__ == "__main__": 
-    app.run(debug=True, host='0.0.0.0')
+#if __name__ == "__main__": 
+#    app.run(debug=True, host='0.0.0.0')
 
