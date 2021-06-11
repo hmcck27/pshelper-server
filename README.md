@@ -2,10 +2,10 @@
 알고리즘 문제풀이 ( PS )를 도와주는 크롬 익스텐션에 필요한 서버입니다.
 https://www.acmicpc.net/ 과 호환됩니다.
 
-# api spec
+# Api spec
 https://abc.pshelper.de/
 
-## contact
+## Contact
 ### hmcck27@gmail.com
 
 ## Feature
@@ -19,4 +19,6 @@ https://abc.pshelper.de/
 - flask
 - pytorch
 - koBERT
-
+- tensorflow
+- nginx
+- uwsgi
