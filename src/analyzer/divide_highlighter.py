@@ -10,29 +10,33 @@ from konlpy.tag import Kkma
 
 kkma = Kkma()
 
+class DivideHighlighter():
+    def __init__(self,text):
+        self.result = []
+        splitted_text = self.getDevidedContent(text)
 
-class ProblemAnalyzer:
-    @staticmethod
-    def getPosBySentence(sentence):
+        for one_sentence in splitted_text:
+            bolded_sentence = self.getPosBySentence(one_sentence)
+            self.result.append(bolded_sentence)
+
+    @classmethod
+    def getPosBySentence(self,sentence):
         posses = kkma.pos(sentence)
         pos_dict = {}
         sentence_formatted = sentence
         for pos in posses:
             if pos[1] == 'MAC':
-                # print(pos[0])
                 pos_dict[pos[0]] = pos[1]
         for key in pos_dict:
-            sentence_formatted = sentence_formatted.replace(key, "<b>"+key+"<b/>")
+            sentence_formatted = sentence_formatted.replace(key, "<strong>"+key+"</strong>")
         print(sentence_formatted)
         return sentence_formatted
 
-    @staticmethod
-    def getDevidedContent(content):
+    @classmethod
+    def getDevidedContent(self,content):
         sentences = kkma.sentences(content)
-        sentence_list = []
-        print("===== Sentence =====")
-        for sentence in sentences:
-            print(sentence)
-            sentence_list.append(ProblemAnalyzer.getPosBySentence(sentence))
-
+        print(sentences)
+        sentence_list = sentences
         return sentence_list
+
+
